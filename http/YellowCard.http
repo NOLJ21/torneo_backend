@@ -1,0 +1,21 @@
+##### READ ALL YELLOW CARDS
+GET http://localhost:8080/api/yellowcards
+Content-Type: application/json
+
+##### CREATE A YELLOW CARD
+POST http://localhost:8080/api/yellowcards
+Content-Type: application/json
+
+{
+    "gameId": 3,
+    "playerId": 1
+}
+
+
+
+
+// -----CUSTOM ROUTES-----
+
+##### READ ALL YELLOW CARDS BY GAME ID
+GET http://localhost:8080/api/yellowcards/gameId/4
+Content-Type: application/json

@@ -1,0 +1,21 @@
+##### READ ALL RED CARDS
+GET http://localhost:8080/api/redcards
+Content-Type: application/json
+
+##### CREATE A RED CARD
+POST http://localhost:8080/api/redcards
+Content-Type: application/json
+
+{
+    "gameId": 3,
+    "playerId": 1
+}
+
+
+
+
+// -----CUSTOM ROUTES-----
+
+##### READ ALL RED CARDS BY GAME ID
+GET http://localhost:8080/api/redcards/gameId/4
+Content-Type: application/json

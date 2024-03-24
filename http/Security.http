@@ -1,0 +1,69 @@
+##### LISTAR USUARIOS
+GET http://localhost:8080/api/auth/read
+Content-Type: application/json
+
+##### LEER UN USUARIO
+GET http://localhost:8080/api/auth/read/1
+Content-Type: application/json
+
+##### CREAR UN USUARIO
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "coach",
+  "email": "coach@email.com",
+  "password": "Password123!",
+  "role": ["coach"]
+}
+
+##### ACTUALIZAR UN USUARIO
+PUT http://localhost:8080/api/auth/update/1
+Content-Type: application/json
+
+{
+    "username": "coach",
+    "email": "coach@email.com",
+    "password": "Password123!",
+    "role": ["coach"]
+}
+
+##### BORRAR O ACTIVAR USUARIOS
+DELETE http://localhost:8080/api/auth/delete/1
+Content-Type: application/json
+
+##### AUTENTICAR UN USUARIO
+POST http://localhost:8080/api/auth/signin
+Content-Type: application/json
+
+{
+  "username": "coach",
+  "password": "Password123!"
+}
+
+##### ACTUALIZAR TOKEN
+POST http://localhost:8080/api/auth/refreshtoken
+Content-Type: application/json
+
+{
+    "refreshToken": "b50f3cce-bf44-4d95-a418-0ba50abdd754"
+}
+
+##### LOGOUT UN USUARIO
+POST http://localhost:8080/api/auth/signout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb2FjaCIsImlhdCI6MTY3OTkwOTc4OSwiZXhwIjoxNjc5OTA5ODg5fQ.PcTOcWdQHJDEcrWveuTfwCJ6wA-1EYh3di8ujFCAAoTPeh33jOP-GL7KxISSoxXgzSFhnqq2pZmiw5_gvCo7hA
+
+##### LEER CONFIGURACION DE COTRACENA
+GET http://localhost:8080/api/auth/passwordsetting
+Content-Type: application/json
+
+##### GUARDAR CONFIGURACION DE COTRACENA
+POST http://localhost:8080/api/auth/passwordsetting
+Content-Type: application/json
+
+{
+    "numberFail": 3,
+    "pattern": "aa",
+    "expireDate": "2023-05-19T03:41"
+}

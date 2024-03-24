@@ -1,0 +1,53 @@
+##### READ ALL PLAYERS
+GET http://localhost:8080/api/players
+Content-Type: application/json
+
+
+##### CREATE A PLAYER
+POST http://localhost:8080/api/players
+Content-Type: application/json
+
+{
+    "name":"name",
+    "ci":"11111",
+    "playerType":"playertype",
+    "birthdate":"2023-01-01",
+    "countryId": 1,
+    "teamId": 1
+}
+
+
+##### UPDATE A PLAYER BY ID
+PUT http://localhost:8080/api/players/1
+Content-Type: application/json
+
+{
+    "name":"name",
+    "ci":"11111",
+    "playerType":"playertype",
+    "birthdate":"2023-01-01",
+    "countryId": 1,
+    "teamId": 1
+}
+
+
+##### DELETE A PLAYER BY ID
+DELETE http://localhost:8080/api/players/1
+Content-Type: application/json
+
+
+
+
+// -----CUSTOM ROUTES-----
+
+##### READ ALL PLAYER BY TEAM ID
+GET http://localhost:8080/api/players/teamId/1
+Content-Type: application/json
+
+##### READ ALL PLAYER BY USER ID
+GET http://localhost:8080/api/players/userId/1
+Content-Type: application/json
+
+##### READ ALL PLAYER BY TOURNAMENT TEAM ID
+GET http://localhost:8080/api/players/tournamentTeamId/5
+Content-Type: application/json

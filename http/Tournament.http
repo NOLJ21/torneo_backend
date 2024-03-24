@@ -1,0 +1,42 @@
+##### READ ALL TOURNAMENTS
+GET http://localhost:8080/api/tournaments
+Content-Type: application/json
+
+##### CREATE A TOURNAMENT
+POST http://localhost:8080/api/tournaments
+Content-Type: application/json
+
+{
+  "name": "Torneo de fútbol",
+  "number": 16,
+  "start": "2023-06-01",
+  "finish": "2023-07-01"
+}
+
+##### UPDATE A TOURNAMENT BY ID
+PUT http://localhost:8080/api/tournaments/1
+Content-Type: application/json
+
+{
+  "name": "Torneo de fútbol actualizado",
+  "number": 16,
+  "start": "2023-06-01",
+  "finish": "2023-07-01"
+}
+
+##### DELETE A TOURNAMENT BY ID
+DELETE http://localhost:8080/api/tournaments/1
+Content-Type: application/json
+
+
+
+
+// -----CUSTOM ROUTES-----
+
+##### READ ALL TOURNAMENTS BY USER ID
+GET http://localhost:8080/api/tournaments/userId/1
+Content-Type: application/json
+
+##### READ ALL TOURNAMENTS BY REFEREE ID
+GET http://localhost:8080/api/tournaments/refereeId/2
+Content-Type: application/json

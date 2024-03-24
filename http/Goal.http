@@ -1,0 +1,21 @@
+##### READ ALL GOALS
+GET http://localhost:8080/api/goals
+Content-Type: application/json
+
+##### CREATE A GOAL
+POST http://localhost:8080/api/goals
+Content-Type: application/json
+
+{
+    "gameId": 3,
+    "playerId": 1
+}
+
+
+
+
+// -----CUSTOM ROUTES-----
+
+##### READ ALL GOALS BY GAME ID
+GET http://localhost:8080/api/goals/gameId/4
+Content-Type: application/json

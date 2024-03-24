@@ -1,0 +1,34 @@
+##### READ ALL GAMES
+GET http://localhost:8080/api/games
+Content-Type: application/json
+
+##### CREATE A GAME
+POST http://localhost:8080/api/games
+Content-Type: application/json
+
+{
+    "tournamentId": 1,
+    "tournamentTeamAId": 1,
+    "tournamentTeamBId": 2,
+    "userId": 1,
+    "gameDate": "2023-01-01",
+    "latitude": -16.523213,
+    "longitude": -68.112195
+}
+
+##### DELETE A GAME
+DELETE http://localhost:8080/api/games/1
+Content-Type: application/json
+
+
+
+
+// -----CUSTOM ROUTES-----
+
+##### READ ALL GAMES BY TOURNAMENT ID
+GET http://localhost:8080/api/games/tournamentId/1
+Content-Type: application/json
+
+##### READ ALL GAMES TODAY BY REFEREE ID
+GET http://localhost:8080/api/games/today/refereeId/2
+Content-Type: application/json

@@ -1,0 +1,29 @@
+##### READ ALL TOURNAMENT TEAMS
+GET http://localhost:8080/api/tournamentsteams
+Content-Type: application/json
+
+##### CREATE A TOURNAMENT TEAM
+POST http://localhost:8080/api/tournamentsteams
+Content-Type: application/json
+
+{
+    "tournamentId": 1,
+    "teamId": 1
+}
+
+##### DELETE A TOURNAMENT TEAM BY TOURNAMENT ID AND TEAM ID
+DELETE http://localhost:8080/api/tournamentsteams/tournamentId/1/teamId/1
+Content-Type: application/json
+
+
+
+
+// -----CUSTOM ROUTES-----
+
+##### READ ALL TOURNAMENT TEAMS BY TOURNAMENT ID
+GET http://localhost:8080/api/tournamentsteams/tournamentId/1
+Content-Type: application/json
+
+##### READ ALL TOURNAMENT TEAMS TODAY BY REFEREE ID
+GET http://localhost:8080/api/tournamentsteams/today/refereeId/2
+Content-Type: application/json

@@ -1,0 +1,51 @@
+##### READ ALL TEAMS
+GET http://localhost:8080/api/teams
+Content-Type: application/json
+
+##### CREATE A TEAM
+POST http://localhost:8080/api/teams
+Content-Type: application/json
+
+{
+    "name": "team1",
+    "profile": "",
+    "foundation": "2023-01-01",
+    "userId": 1
+}
+
+
+##### UPDATEA A TEAM BY ID
+PUT http://localhost:8080/api/teams/1
+Content-Type: application/json
+
+{
+    "name": "team1",
+    "profile": "",
+    "foundation": "2023-01-01",
+    "userId": 1
+}
+
+##### DELETE TEAM BY ID
+DELETE http://localhost:8080/api/teams/1
+Content-Type: application/json
+
+
+
+
+// -----CUSTOM ROUTES-----
+
+##### READ ALL TEAMS BY USER ID
+GET http://localhost:8080/api/teams/userId/1
+Content-Type: application/json
+
+##### READ ALL TEAMS BY TOURNAMENT ID
+GET http://localhost:8080/api/teams/tournamentId/1
+Content-Type: application/json
+
+##### READ A TEAM BY TOURNAMENT TEAM ID
+GET http://localhost:8080/api/teams/tournamentTeamId/2
+Content-Type: application/json
+
+##### READ ALL TEAMS TODAY BY REFEREE ID
+GET http://localhost:8080/api/teams/today/refereeId/2
+Content-Type: application/json

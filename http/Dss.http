@@ -1,0 +1,31 @@
+##### READ ALL TEAM WINNER COUNT
+GET http://localhost:8080/api/dss/teamWinnerCount
+Content-Type: application/json
+
+##### READ ALL TEAM WINNER COUNT BY USER ID
+GET http://localhost:8080/api/dss/teamWinnerCount/userId/1
+Content-Type: application/json
+
+##### READ TOP 10 PLAYER GOAL, RED, YELLOW COUNT
+GET http://localhost:8080/api/dss/playerGoalCount
+Content-Type: application/json
+
+##### READ TOP 10 PLAYER GOAL, RED, YELLOW COUNT BY USER ID
+GET http://localhost:8080/api/dss/playerGoalCount/userId/1
+Content-Type: application/json
+
+##### READ TOP 10 PLAYER GOAL, RED, YELLOW COUNT
+GET http://localhost:8080/api/dss/playerRedCardCount
+Content-Type: application/json
+
+##### READ TOP 10 PLAYER GOAL, RED, YELLOW COUNT BY USER ID
+GET http://localhost:8080/api/dss/playerRedCardCount/userId/1
+Content-Type: application/json
+
+##### READ TOP 10 PLAYER GOAL, RED, YELLOW COUNT
+GET http://localhost:8080/api/dss/playerYellowCardCount
+Content-Type: application/json
+
+##### READ TOP 10 PLAYER GOAL, RED, YELLOW COUNT BY USER ID
+GET http://localhost:8080/api/dss/playerYellowCardCount/userId/1
+Content-Type: application/json

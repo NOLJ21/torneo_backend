@@ -1,0 +1,3 @@
+##### READ ALL POSITIONS
+GET http://localhost:8080/api/positions
+Content-Type: application/json
