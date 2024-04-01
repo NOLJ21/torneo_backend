@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ucb.validador.backend.dto.PlayerDto;
 import ucb.validador.backend.model.Player;
 import ucb.validador.backend.repository.PlayerRepository;
-import ucb.validador.backend.s3.FileService;
+//import ucb.validador.backend.s3.FileService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,14 +15,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class PlayerService {
-    private PlayerRepository playerRepository;
-    private FileService fileService;
 
     @Autowired
-    public PlayerService(PlayerRepository playerRepository, FileService fileService) {
-        this.playerRepository = playerRepository;
-        this.fileService = fileService;
-    }
+    private PlayerRepository playerRepository;
+//    private FileService fileService;
+
+    @Autowired
+    private FileService fileService;
 
     public List<PlayerDto> findAllDto() {
         return playerRepository.findAll().stream().map(this::playerToPlayerDto).collect(Collectors.toList());
@@ -30,6 +29,7 @@ public class PlayerService {
 
     public String saveDto(String name, MultipartFile profile, String ci, LocalDate birthdate, Integer positionId,
             Integer teamId) {
+//        String imageName = fileService.uploadFile(profile);
         String imageName = fileService.uploadFile(profile);
         Player player = new Player(null, name, imageName, ci,
                 birthdate, positionId, teamId);
@@ -40,6 +40,7 @@ public class PlayerService {
     public String updateDto(Integer playerId, String name, MultipartFile profile, String ci, LocalDate birthdate,
             Integer positionId,
             Integer teamId) {
+//        String imageName = fileService.uploadFile(profile);
         String imageName = fileService.uploadFile(profile);
         Player playerFound = playerRepository.getReferenceById(playerId);
         playerFound.setName(name);
@@ -77,7 +78,8 @@ public class PlayerService {
 
     // ----- MODEL TO DTO -----
     private PlayerDto playerToPlayerDto(Player player) {
-        PlayerDto playerDto = new PlayerDto(player.getId(), player.getName(), player.getProfile(), player.getCi(),
+        String profile = fileService.getDownloadUrl(player.getProfile());
+        PlayerDto playerDto = new PlayerDto(player.getId(), player.getName(), profile, player.getCi(),
                 player.getBirthdate(),
                 player.getPositionId(), player.getTeamId(),
                 player.getStatus());

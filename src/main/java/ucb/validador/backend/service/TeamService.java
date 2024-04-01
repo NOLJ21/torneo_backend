@@ -11,24 +11,25 @@ import org.springframework.web.multipart.MultipartFile;
 import ucb.validador.backend.dto.TeamDto;
 import ucb.validador.backend.model.Team;
 import ucb.validador.backend.repository.TeamRepository;
-import ucb.validador.backend.s3.FileService;
+//import ucb.validador.backend.s3.FileService;
 
 @Service
 public class TeamService {
-    private TeamRepository teamRepository;
-    private FileService fileService;
 
     @Autowired
-    public TeamService(TeamRepository teamRepository, FileService fileService) {
-        this.teamRepository = teamRepository;
-        this.fileService = fileService;
-    }
+    private TeamRepository teamRepository;
+//    private FileService fileService;
+
+    @Autowired
+    private FileService fileService;
 
     public List<TeamDto> findAllDto() {
         return teamRepository.findAll().stream().map(this::teamToTeamDto).collect(Collectors.toList());
     }
 
     public String saveDto(String name, MultipartFile profile, LocalDate foundation, Integer userId) {
+//        String imageName = fileService.uploadFile(profile);
+
         String imageName = fileService.uploadFile(profile);
         Team team = new Team(null, name, imageName, foundation, userId);
         teamRepository.save(team);
@@ -36,6 +37,7 @@ public class TeamService {
     }
 
     public String updateDto(Integer teamId, String name, MultipartFile profile, LocalDate foundation) {
+//        String imageName = fileService.uploadFile(profile);
         String imageName = fileService.uploadFile(profile);
         Team teamFound = teamRepository.getReferenceById(teamId);
         teamFound.setName(name);
@@ -73,7 +75,8 @@ public class TeamService {
 
     // ----- MODEL TO DTO -----
     private TeamDto teamToTeamDto(Team team) {
-        TeamDto teamDto = new TeamDto(team.getId(), team.getName(), team.getProfile(), team.getFoundation(),
+        String profile = fileService.getDownloadUrl(team.getProfile());
+        TeamDto teamDto = new TeamDto(team.getId(), team.getName(), profile, team.getFoundation(),
                 team.getUserId(),
                 team.getStatus());
         return teamDto;

@@ -11,10 +11,10 @@ POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
 
 {
-  "username": "coach",
-  "email": "coach@email.com",
+  "username": "referee",
+  "email": "referee@email.com",
   "password": "Password123!",
-  "role": ["coach"]
+  "role": ["referee"]
 }
 
 ##### ACTUALIZAR UN USUARIO
