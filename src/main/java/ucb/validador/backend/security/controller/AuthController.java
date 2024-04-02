@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,15 +110,24 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
+    @Transactional
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequest) {
         LoginFail loginFail = loginFailRepository
                 .findByUserId(userRepository.findByUsername(loginRequest.getUsername()).get().getId());
         if (loginFail.getExpireDate() != null) {
             Date expireDate = loginFail.getExpireDate();
             Date currentDate = new Date();
+            System.out.println("Usuario: " + loginFail.getExpireDate());
             if (expireDate.compareTo(currentDate) < 0) {
-                loginFailRepository
-                        .login_fail_true(userRepository.findByUsername(loginRequest.getUsername()).get().getId());
+//                loginFailRepository
+//                        .login_fail_true(userRepository.findByUsername(loginRequest.getUsername()).get().getId());
+                System.out.println("loginFail.getCount() = " + loginFail.getCount());
+                loginFailRepository.loginFailTruePart1(
+                        userRepository.findByUsername(loginRequest.getUsername()).get().getId());
+
+                loginFailRepository.loginFailTruePart2(
+                        userRepository.findByUsername(loginRequest.getUsername()).get().getId());
+                return ResponseEntity.badRequest().body(new MessageResponseDto("User unlocked successfully!"));
             }
         }
 
@@ -146,8 +156,13 @@ public class AuthController {
             loginFail.setCount(loginFail.getCount() + 1);
             loginFailRepository.save(loginFail);
             if (loginFail.getCount() >= 3) {
-                loginFailRepository
-                        .login_fail_false(userRepository.findByUsername(loginRequest.getUsername()).get().getId());
+//                loginFailRepository
+//                        .login_fail_false(userRepository.findByUsername(loginRequest.getUsername()).get().getId());
+                loginFailRepository.loginFailFalsePart1(
+                        userRepository.findByUsername(loginRequest.getUsername()).get().getId());
+
+                loginFailRepository.loginFailFalsePart2(
+                        userRepository.findByUsername(loginRequest.getUsername()).get().getId());
                 return ResponseEntity.badRequest()
                         .body(new MessageResponseDto("Error: Tried too many times. Wait 1 minute and try again."));
             }
