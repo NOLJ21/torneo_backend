@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.extern.slf4j.Slf4j;
 import ucb.validador.backend.dto.PositionDto;
 import ucb.validador.backend.service.PositionService;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/positions")
 public class PositionController {
@@ -24,7 +26,9 @@ public class PositionController {
 
     @GetMapping
     public ResponseEntity<List<PositionDto>> getPositions() {
+        log.info("Solicitud para obtener todas las posiciones");
         List<PositionDto> positionDtos = positionService.findAllDto();
+        log.info("Posiciones obtenidas: {}", positionDtos);
         return new ResponseEntity<>(positionDtos, HttpStatus.OK);
     }
 }

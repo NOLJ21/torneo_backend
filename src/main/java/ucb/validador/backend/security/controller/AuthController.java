@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -41,6 +42,7 @@ import ucb.validador.backend.security.dto.UserDto;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -75,6 +77,7 @@ public class AuthController {
     public ResponseEntity<?> getPasswordSetting() {
         List<PasswordSetting> passwordSettings = passwordSettingRepository.findAll();
         if (passwordSettings.size() <= 0) {
+            log.error("Error: No password setting");
             return ResponseEntity.badRequest().body(new MessageResponseDto("Error: No password setting"));
         }
         PasswordSetting passwordSetting = passwordSettings.get(passwordSettings.size() - 1);
