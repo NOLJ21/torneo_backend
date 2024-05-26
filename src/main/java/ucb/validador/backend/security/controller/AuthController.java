@@ -1,9 +1,6 @@
 package ucb.validador.backend.security.controller;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -11,19 +8,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.*;
 
 import ucb.validador.backend.security.exception.TokenRefreshException;
 import ucb.validador.backend.security.model.ERole;
@@ -75,6 +67,9 @@ public class AuthController {
 
     @Autowired
     PasswordSettingRepository passwordSettingRepository;
+
+    @Autowired
+    private JavaMailSender emailSender;
 
     @GetMapping("/passwordsetting")
     public ResponseEntity<?> getPasswordSetting() {
@@ -313,4 +308,35 @@ public class AuthController {
                 user.getStatus());
         return userDto;
     }
+
+    // Recuperacion de Contraseña
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestParam String email){
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Error: User is not found with email: " + email));
+        String token = UUID.randomUUID().toString();
+        user.setResetPasswordToken(token);
+        userRepository.save(user);
+
+        // Enviar correo electronico
+        String resetLink = "http://localhost:4200/reset-password?token=" + token;
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Reset Password");
+        message.setText("Click the folowing link to reset you password: " + resetLink);
+        emailSender.send(message);
+        return ResponseEntity.ok(new MessageResponseDto("Reset password link has been sent to your email."));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestParam String token, @RequestParam String newPassword){
+        User user = userRepository.findByResetPasswordToken(token)
+                .orElseThrow(() ->  new RuntimeException("Error: User is not found with token." + token));
+        // Restablecer contraseña
+        user.setPassword(encoder.encode(newPassword));
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
+        return ResponseEntity.ok(new MessageResponseDto("Password reset successfully!") );
+    }
+
 }
